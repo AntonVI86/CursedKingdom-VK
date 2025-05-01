@@ -16,6 +16,12 @@
           <div id="unity-progress-bar-full"></div>
         </div>
       </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">The cursed kingdom</div>
+      </div>
     </div>
     <script>
       var container = document.querySelector("#unity-container");
@@ -52,9 +58,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/CursedKingdom-VK.loader.js";
       var config = {
-        dataUrl: buildUrl + "/CursedKingdom-VK.data.gz",
-        frameworkUrl: buildUrl + "/CursedKingdom-VK.framework.js.gz",
-        codeUrl: buildUrl + "/CursedKingdom-VK.wasm.gz",
+        dataUrl: buildUrl + "/CursedKingdom-VK.data.unityweb",
+        frameworkUrl: buildUrl + "/CursedKingdom-VK.framework.js.unityweb",
+        codeUrl: buildUrl + "/CursedKingdom-VK.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "A_ACompany",
         productName: "The cursed kingdom",
@@ -85,8 +91,8 @@
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
       }
 
       loadingBar.style.display = "block";
@@ -98,7 +104,9 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
-          
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
         }).catch((message) => {
           alert(message);
         });
